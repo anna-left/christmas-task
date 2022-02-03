@@ -1,0 +1,58 @@
+{
+    "plugins": ["prettier", 
+        "import",
+        "@typescript-eslint"],
+    "extends": [
+        "plugin:prettier/recommended",
+        "prettier",
+        "airbnb-typescript/base",
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+    },
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "rules": {
+        "no-debugger": "off",
+        "no-console": 0,
+        "class-methods-use-this": "off",
+        "@typescript-eslint/ban-types": ["error",
+            {
+                "types": {
+                    "Function": false
+                },
+                "extendDefaults": true
+            }
+        ],
+        "no-plusplus": "off",
+        "@typescript-eslint/no-explicit-any": "error",
+        // "no-console": "warn",
+        "max-len": ["warn", { "code": 120 }],
+        "indent": ["warn", 2, {
+        "SwitchCase": 1
+        }],
+        "@typescript-eslint/indent": ["warn", 2, {
+        "SwitchCase": 1
+        }],
+        "import/prefer-default-export": "off",
+        "no-param-reassign": ["error", {
+        "props": false
+        }],
+        "comma-dangle": [2, "always-multiline"],
+        "prettier/prettier": [
+        "error",
+        {
+        "endOfLine": "auto"
+        }
+        ]
+    },
+    "ignorePatterns": ["*config.js", "./dist/*.js"]
+}

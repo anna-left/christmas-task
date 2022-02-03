@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas tree</title>
+    <link rel="icon" href="./assets/favicon.ico">
+    <!-- бибилиотека для слайдеров -->
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.js"></script>
+    <link href="https://cdn.rawgit.com/RasmusFonseca/d3RangeSlider/master/d3RangeSlider.css" rel="stylesheet">
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-container wrapper">
+            <nav class="nav-bar">
+                <a href="#" class="switch-main"></a>
+                <a href="#" class="switch-toys">Игрушки</a>
+                <a href="#" class="switch-tree">Ёлка</a>
+            </nav>
+            <!-- сообщение -->
+            <div class="message">
+                <p class="message__text"></p>
+            </div>
+            <div class="counter-selected"><span>0</span></div>
+        </div>
+    </header>
+
+    <div class="main-page wrapper">
+        <div class="main-ball main-big-ball">
+        </div>
+        <div class="main-ball main-small-ball">
+        </div>
+        
+        <h1 class="main-page-title">Новогодняя игра<span>«Наряди ёлку»</span></h1>
+        <div class="countdown-container">
+            <h2>До Нового года осталось</h2>
+            <div class="countdown-time">
+                <div class="time">
+                    <h1 id="days">00</h1>
+                    <small>дней</small>
+                </div>
+                <div class="time">
+                    <h1 id="hours">00</h1>
+                    <small>часов</small>
+                </div>
+                <div class="time">
+                    <h1 id="minutes">00</h1>
+                    <small>минут</small>
+                </div>
+                <div class="time">
+                    <h1 id="seconds">00</h1>
+                    <small>секунд</small>
+                </div>
+            </div>
+        </div>
+        <button class="start-btn" data-page="mainPage">❄️ Начать ❄️ </button>
+    </div>
+
+    <div class="toys-page wrapper hide">
+        <div class="filters-and-sorting">
+            <div class="filters-values">
+                <h3>Фильтры по значению</h3>
+                <div class="filter-shape">
+                    Форма:
+                    <button data-filter="шар"></button>
+                    <button data-filter="колокольчик"></button>
+                    <button data-filter="шишка"></button>
+                    <button data-filter="снежинка"></button>
+                    <button data-filter="фигурка"></button>
+                </div>
+                <div class="filter-color">
+                    Цвет:
+                    <button data-filter="белый"></button>
+                    <button data-filter="желтый"></button>
+                    <button data-filter="красный"></button>
+                    <button data-filter="синий"></button>
+                    <button data-filter="зелёный"></button>
+                </div>
+                <div class="filter-size">
+                    Размер:
+                    <button data-filter="большой"></button>
+                    <button data-filter="средний"></button>
+                    <button data-filter="малый"></button>
+                </div>
+                <div class="filter-favorite">
+                    Только любимые:
+                    <input type="checkbox" class="favorite-input" id="favorite-checkbox">
+                    <label for="favorite-checkbox" class="favorite-input-label"></label>
+                </div>
+            </div>
+            <div class="filters-range">
+                <h3>Фильтры по диапазону</h3>
+                <div class="filter-range-box">
+                    <div class="slider-number-begin"></div>
+                    <p class="filter-range-title">Количество экземпляров:</p>
+                    <div class="slider-number-end"></div>
+                </div>
+                <div id="slider-number"></div>
+                <div class="filter-range-box">
+                    <div class="slider-years-begin"></div>
+                    <p class="filter-range-title">Год приобретения:</p>
+                    <div class="slider-years-end"></div>
+                </div>
+                <div id="slider-years"></div>
+            </div>
+
+            <div class="sorting">
+                <h3>Сортировка</h3>
+                <select class="sorting-select">
+                    <option selected="" value="sorting-name-max">По названию от «А» до «Я»</option>
+                    <option value="sorting-name-min">По названию от «Я» до «А»</option>
+                    <option value="sorting-count-max">По количеству по возрастанию</option>
+                    <option value="sorting-count-min">По количеству по убыванию</option>
+                </select>
+                <input type="search" class="search" autocomplete="off" placeholder="поиск" autofocus>
+                <button class="reset">Сброс фильтров и local storage</button>
+            </div>
+        </div>
+
+        <div class="toys-cards">
+
+        </div>
+
+    </div>
+
+    <div class="tree-page wrapper hide">
+        <div class="menu">
+            <div class="menu-effects">
+                <div class="menu-sound">
+                </div>
+                <div class="menu-snow">
+                </div>
+                <div class="menu-reset">
+                </div>
+                <audio id="audio" src="./assets/audio/audio.mp3" loop></audio>
+            </div>
+
+            <h3>Выберите ёлку</h3>
+            <div class="menu-spruces">
+                <div class="menu-spruce">
+                    <img class="menu-spruce__img" src="./assets/tree/1.png" data-menu-spruce = "1" alt="tree">
+                </div>
+                <div class="menu-spruce">
+                    <img class="menu-spruce__img" src="./assets/tree/2.png" data-menu-spruce = "2" alt="tree">
+                </div>
+                <div class="menu-spruce">
+                    <img class="menu-spruce__img" src="./assets/tree/3.png" data-menu-spruce = "3" alt="tree">
+                </div>
+                <div class="menu-spruce">
+                    <img class="menu-spruce__img" src="./assets/tree/4.png" data-menu-spruce = "4" alt="tree">
+                </div>
+                <div class="menu-spruce">
+                    <img class="menu-spruce__img" src="./assets/tree/5.png" data-menu-spruce = "5" alt="tree">
+                </div>
+                <div class="menu-spruce">
+                    <img class="menu-spruce__img" src="./assets/tree/6.png" data-menu-spruce = "6" alt="tree">
+                </div>
+            </div>
+            <h3>Выберите фон</h3>
+            <div class="menu-backgrounds">
+                <div class="menu-background" data-menu-backgrounds = "1">
+                </div>
+                <div class="menu-background" data-menu-backgrounds = "2">
+                </div>
+                <div class="menu-background" data-menu-backgrounds = "3">
+                </div>
+                <div class="menu-background" data-menu-backgrounds = "4">
+                </div>
+                <div class="menu-background" data-menu-backgrounds = "5">
+                </div>
+                <div class="menu-background" data-menu-backgrounds = "6">
+                </div>
+                <div class="menu-background" data-menu-backgrounds = "7">
+                </div>
+                <div class="menu-background" data-menu-backgrounds = "8">
+                </div>
+                <div class="menu-background" data-menu-backgrounds = "9">
+                </div>
+                <div class="menu-background" data-menu-backgrounds = "10">
+                </div>
+            </div>
+            <h3>Гирлянда</h3>
+            <div class="menu-garland">
+                <div class="garland-btns">
+                    <button class="color-btn multicolor-btn" data-color="multicolor"></button>
+                    <button class="color-btn red-btn" data-color="red"></button>
+                    <button class="color-btn blue-btn" data-color="blue"></button>
+                    <button class="color-btn yellow-btn" data-color="yellow"></button>
+                    <button class="color-btn green-btn" data-color="green"></button>
+                </div>
+                <div class="garland-switch garland-switch-on"></div>
+            </div>
+        </div>
+        <div class="tree-container">
+            <div class="tree-reset">
+            </div>
+            <div class="garland"></div>
+            <map name="tree-map" class="tree-map">
+                <area class="area"
+                    coords="365,699,189,706,113,683,31,608,2,555,2,539,18,437,73,351,106,224,161,134,243,-1,306,75,353,144,399,221,424,359,452,459,496,550,444,664"
+                    shape="poly">
+            </map>
+            <img src="assets/tree/1.png" class="tree-img" usemap="#tree-map" alt="tree">
+        </div>
+        <div class="aside">
+            <h3>Игрушки</h3>
+            <div class="slots">
+
+            </div>
+            <!-- <h3>Вы нарядили</h3> -->
+        </div>
+    </div>
+    <!-- шаблон карточки -->
+    <div class="template hide">
+        <div class="toy-card" data-num="">
+            <h3 class="toy-card__title">""</h3>
+            <div class="toy-card__container">
+                <div class="toy-card__img-container">
+                    <img class="toy-card__img" src="./assets/toys/1.png" alt="toy">
+                    <div class="toy-card__btn">
+                        <div class="toy-card__bow hide"></div>
+                    </div>
+                </div>
+                <div class="toy-card-description">
+                    <p class="count">Количество: <span>""</span></p>
+                    <p class="year">Год покупки: <span>""</span></p>
+                    <p class="shape">Форма: <span>""</span></p>
+                    <p class="color">Цвет: <span>""</span></p>
+                    <p class="size">Размер: <span>""</span></p>
+                    <div class="favorite">
+                        <span>Любимая </span>
+                        <span class="isFavourite"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="toy-card__view">
+                <img class="toy-card__view-img" src="./assets/toys/1.png" alt="toy">
+            </div>
+        </div>
+    </div>
+    <!-- шаблон слота -->
+    <div class="template-slot hide">
+        <div class="slot">
+            <span class="slot-count">12</span>
+        </div>
+    </div>
+    <!-- <img class="slot-img" src="assets/toys/1.png" alt="toy" id="1-2" data-num="1" draggable="true"> -->
+    <!--  -->
+
+    <footer class="footer">
+        <div class="footer-container wrapper">
+            <div class="footer-data">
+                <p class="copyright">©</p>
+                <p class="year">2021</p>
+                <a class="github-logo" href="https://github.com/anna-left/" target="_blank"
+                    rel="noopener noreferrer"></a>
+            </div>
+
+            <a class="rss-logo" href="https://rs.school/js/" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+    </footer>
+
+</body>
+
+</html>
